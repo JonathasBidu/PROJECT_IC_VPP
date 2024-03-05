@@ -1,0 +1,21 @@
+keys;values
+Nbm;2
+p_bm_min;[1.85 1.65]
+p_bm_max;[9.  7.5]
+p_bm_rup;[3. 3.]
+p_bm_rdown;[3. 3.]
+kappa_bm;[6.05 6.05]
+kappa_bm_start;[20.14 20.14]
+Npv;2
+kappa_pv;[0.027 0.027]
+Nwt;3
+kappa_wt;[0.027 0.027 0.027]
+Nbat;1
+eta_chg;[0.914]
+eta_dch;[0.914]
+soc_min;[3.125]
+soc_max;[28.935]
+p_bat_max;[5.66]
+kappa_bat;[0.027]
+Ndl;2
+Nl;3
