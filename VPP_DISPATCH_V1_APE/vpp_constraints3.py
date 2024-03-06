@@ -83,16 +83,16 @@ def vpp_constraints3(x, vpp_data):
     p_bm, p_dl, p_chg, p_dch, soc,u_bm, u_dl, u_chg, u_dch = decomp_vetor_v1(x, Nt, Nbm, Ndl, Nbat)
 
     ###################### TIRAR DÚVIDA POIS, ESSE DESEMPACOTAMENTO NÃO CONDIZ COM O RETORNO DA FUNÇÃO ACIMA ##################
-    # reshape vvetores em matrizes     
-    p_bm = p_bm.reshape((Nt, Nbm))
-    p_dl = p_dl.reshape((Nt, Ndl))
-    p_chg = p_chg.reshape((Nt, Nbat))
-    p_dch = p_dch.reshape((Nt, Nbat))
-    soc = soc.reshape((Nt, Nbat))
-    u_bm = u_bm.reshape((Nt, Nbm))
-    u_dl = u_dl.reshape((Nt, Ndl))
-    u_chg = u_chg.reshape((Nt, Nbat))
-    u_dch = u_dch.reshape((Nt, Nbat))
+    # reshape vetores em matrizes     
+    p_bm = p_bm.reshape((Nbm, Nt))
+    p_dl = p_dl.reshape((Ndl, Nt))
+    p_chg = p_chg.reshape((Nbat, Nt))
+    p_dch = p_dch.reshape((Nbat, Nt))
+    soc = soc.reshape((Nbat, Nt))
+    u_bm = u_bm.reshape((Nbm, Nt))
+    u_dl = u_dl.reshape((Ndl, Nt))
+    u_chg = u_chg.reshape((Nbat, Nt))
+    u_dch = u_dch.reshape((Nbat, Nt))
 
     # Restricoes da biomassa
     Nbmc = (Nt * Nbm) + (Nt * Nbm) + ((Nt - 1) * Nbm) + ((Nt - 1) * Nbm)
@@ -100,10 +100,10 @@ def vpp_constraints3(x, vpp_data):
     k = 0
 
     # p_bm_max
-    for i in range(1, Nbm):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Nbm):
+        for t in range(Nt):
             c_bm[k] = p_bm[i, t] - p_bm_max[i] * u_bm[i, t]
+            k += 1
 
     # p_bm_min
     for i in range(1, Nbm):
