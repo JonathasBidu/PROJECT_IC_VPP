@@ -89,24 +89,24 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     return p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl
 
 # Exemplo de uso
-Nt = 24  # Número de pontos de dados na série temporal
-Nl = 5   # Número de cargas
-Ndl = 2  # Número de cargas de referência
-Npv = 10  # Número de sistemas fotovoltaicos
-Nwt = 8  # Número de sistemas de geração eólica
+# Nt = 24  # Número de pontos de dados na série temporal
+# Nl = 5   # Número de cargas
+# Ndl = 2  # Número de cargas de referência
+# Npv = 10  # Número de sistemas fotovoltaicos
+# Nwt = 8  # Número de sistemas de geração eólica
 
-p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
+# p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
 
-print(p_l.shape)
+# print(p_l.shape)
 
 
 
-print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
-print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
-print(f'p_wt -> {p_wt.shape} {type(p_wt)} -> {p_wt} \n')
-print(f'p_dl_ref -> {p_dl_ref.shape} {type(p_dl_ref)} -> {p_dl_ref} \n')
-print(f'p_dl_min -> {p_dl_min.shape} {type(p_dl_min)} -> {p_dl_min} \n')
-print(f'p_dl_max -> {p_dl_max.shape} {type(p_dl_max)} -> {p_dl_max} \n')
-print(f'tau_pld -> {tau_pld.shape} {type(tau_pld)} -> {tau_pld} \n')
-print(f'tau_dist -> {tau_dist.shape} {type(tau_dist)} -> {tau_dist} \n')
-print(f'tau_dl -> {tau_dl.shape} {type(tau_dl)} -> {tau_dl} \n')
+# print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
+# print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
+# print(f'p_wt -> {p_wt.shape} {type(p_wt)} -> {p_wt} \n')
+# print(f'p_dl_ref -> {p_dl_ref.shape} {type(p_dl_ref)} -> {p_dl_ref} \n')
+# print(f'p_dl_min -> {p_dl_min.shape} {type(p_dl_min)} -> {p_dl_min} \n')
+# print(f'p_dl_max -> {p_dl_max.shape} {type(p_dl_max)} -> {p_dl_max} \n')
+# print(f'tau_pld -> {tau_pld.shape} {type(tau_pld)} -> {tau_pld} \n')
+# print(f'tau_dist -> {tau_dist.shape} {type(tau_dist)} -> {tau_dist} \n')
+# print(f'tau_dl -> {tau_dl.shape} {type(tau_dl)} -> {tau_dl} \n')
