@@ -106,59 +106,59 @@ def vpp_constraints3(x, vpp_data):
             k += 1
 
     # p_bm_min
-    for i in range(1, Nbm):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Nbm):
+        for t in range(Nt):
             c_bm[k] = p_bm_min[i, t] * u_bm[i, t] - p_bm[i, t]
+            k += 1
 
     # p_bm_rup
-    for i in range(1, Nbm):
-        for t in range(2, Nt):
-            k += 1
+    for i in range(Nbm):
+        for t in range(1, Nt):
             c_bm[k] = p_bm[i, t] - p_bm[i, t - 1] - p_bm_rup[i]
+            k += 1
 
     # p_bm_rdown
-    for i in range(1, Nbm):
-        for t in range(2, Nt):
-            k += 1
+    for i in range(Nbm):
+        for t in range(1, Nt):
             c_bm[k] = p_bm[i, t] - p_bm[i, t - 1] - p_bm_rdown[i]
+            k += 1
 
     # Restrições da bateria
     Nbatc = ((Nt - 1) * Nbat) + ((Nt - 1) * Nbat) + (Nt * Nbat) + (Nt * Nbat) + (Nt * Nbat) # + (Nt * Nbat) + (Nt * Nbat) + (Nt * Nbat) + (Nt * Nbat)
     c_bat = np.zeros(Nbatc)
 
     # soc balanço +
-    for i in range(1, Nbat):
-        for t in range(2, Nt):
-            k += 1
+    for i in range(Nbat):
+        for t in range(1, Nt):
             c_bat[k] = soc[i, t] - soc[i, t - 1]
             c_bat[k] = c_bat[k] - p_chg[i, t] * eta_chg[i]
             c_bat[k] = c_bat[k] - p_dch[i, t] / eta_chg[i]
+            k += 1
 
     # soc balanço -
     shift = ((Nt - 1) * Nbat)
-    for i in range(1, Nbat):
-        for t in range(2, Nt):
-            k += 1
+    for i in range(Nbat):
+        for t in range(1, Nt):
             c_bat[k] = - c_bat[k - shift]
+            k += 1
 
     # limites máximo carga
-    for i in range(1, Nbat):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Nbat):
+        for t in range(Nt):
             c_bat[k] = p_chg[i, t] - p_bat_max[i] * u_chg[i, t]
+            k += 1
 
     # limites mínimo descarga
-    for i in range(1, Nbat):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Nbat):
+        for t in range(Nt):
             c_bat[k] = p_dch[i, t] - p_bat_max[i] * u_dch[i, t]
+            k += 1
 
     # status de carga/descarga
-    for i in range(1, Nbat):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Nbat):
+        for t in range(Nt):
             c_bat[k] = u_chg[i, t] + u_dch[i, t] - 1
+            k += 1
 
     # Restrições das cargas despachaveis 
     Ndlc = (Nt * Ndl) + (Nt * Ndl)
@@ -166,17 +166,16 @@ def vpp_constraints3(x, vpp_data):
     k = 0 
 
     # p_dl_max
-    for i in range(1, Ndl):
-        for t in range(1, Nt):
+    for i in range(Ndl):
+        for t in range(Nt):
+            c_dl[k] = p_dl[i, t] * p_dl_max[i, t] * u_dl[i, t]
             k += 1
-            c_dl[k] = p_dl[i, t] * p_dl_max[i, t] * u_dl[i, t]
-            c_dl[k] = p_dl[i, t] * p_dl_max[i, t] * u_dl[i, t]
 
     # p_dl_min
-    for i in range(1, Ndl):
-        for t in range(1, Nt):
-            k += 1
+    for i in range(Ndl):
+        for t in range(Nt):
             c_dl[k] = p_dl_min[i, t] * u_dl[i, t] - p_dl[i, t]
+            k += 1
 
     # Construção do vetor de restrições
 
