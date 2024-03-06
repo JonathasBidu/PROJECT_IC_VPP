@@ -80,15 +80,15 @@ def vpp_func_v1(x, vpp_data):
     p_bm, p_dl, p_chg, p_dch, soc, u_bm, u_dl, u_chg, u_dch = decomp_vetor_v1(x, Nt, Nbm, Ndl, Nbat)
     
     # Reshape vetores em matrizes
-    p_bm = p_bm.reshape((Nt, Nbm))
-    p_dl = p_dl.reshape((Nt, Ndl))
-    p_chg = p_chg.reshape((Nt, Nbat))
-    p_dch = p_dch.reshape((Nt, Nbat))
-    soc = soc.reshape((Nt, Nbat))
-    u_bm = u_bm.reshape((Nt, Nbm))
-    u_dl = u_dl.reshape((Nt, Ndl))
-    u_chg = u_chg.reshape((Nt, Nbat))
-    u_dch = u_dch.reshape((Nt, Nbat))
+    p_bm = p_bm.reshape((Nbm, Nt))
+    p_dl = p_dl.reshape((Ndl, Nt))
+    p_chg = p_chg.reshape((Nbat, Nt))
+    p_dch = p_dch.reshape((Nbat, Nt))
+    soc = soc.reshape((Nbat, Nt))
+    u_bm = u_bm.reshape((Nbm, Nt))
+    u_dl = u_dl.reshape((Ndl, Nt))
+    u_chg = u_chg.reshape((Nbat, Nt))
+    u_dch = u_dch.reshape((Nbat, Nt))
 
     # Potência líquida
     p_liq = np.zeros(Nt)
@@ -99,14 +99,13 @@ def vpp_func_v1(x, vpp_data):
         for i in range(Nwt):
             p_liq[t] += p_wt[i, t]
         for i in range(Nbm):
-            p_liq[t] += p_bm[t, i] * u_bm[t, i]	
+            p_liq[t] += p_bm[i, t] * u_bm[i, t]	
         for i in range(Nl):
             p_liq[t] -= p_l[i, t]
         for i in range(Ndl):
-            p_liq[t] -= p_dl[t, i] * u_dl[t, i]
+            p_liq[t] -= p_dl[i, t] * u_dl[i, t]
         for i in range(Nbat):            
-            
-            p_liq[t] -= p_chg[t, i] * u_chg[t, i] + p_dch[t, i] * u_dch[t, i]
+            p_liq[t] -= p_chg[i, t] * u_chg[i, t] + p_dch[i, t] * u_dch[i, t]
     
     p_exp = np.maximum(0, p_liq) 
     p_imp = np.maximum(0, -p_liq)
@@ -139,24 +138,24 @@ def vpp_func_v1(x, vpp_data):
     Cbm = 0
     for t in range(Nt):
         for i in range(Nbm):
-            Cbm += p_bm[t, i] * u_bm[t, i] * kappa_bm[i] # conferido
+            Cbm += p_bm[i, t] * u_bm[i, t] * kappa_bm[i] # conferido
 
     #  custo de partida
     for t in range(1, Nt):
         for i in range(Nbm):
-            Cbm += (u_bm[t, i] - u_bm[t - 1, i]) * kappa_bm_start[i]
+            Cbm += (u_bm[i, t] - u_bm[i, t - 1]) * kappa_bm_start[i]
 
     # Custo de controle carga despachada
     Cdl = 0
     for t in range(Nt):
         for i in range(Ndl):
-            Cdl += p_dl[t, i] * u_dl[t, i] * tau_dl[t]
+            Cdl += p_dl[i, t] * u_dl[i, t] * tau_dl[t]
 
     # Custo da bateria
     Cbat = 0
     for t in range(Nt):
         for i in range(Nbat):
-            Cbat += ((p_chg[t, i] * u_chg[t, i] + p_dch[t, i] * u_dch[t, i]) * kappa_bat[i])
+            Cbat += ((p_chg[i, t] * u_chg[i, t] + p_dch[i, t] * u_dch[i, t]) * kappa_bat[i])
 
     # Despesa total
     D = D + Cpv + Cwt + Cbm + Cdl + Cbat
