@@ -94,6 +94,11 @@ def vpp_constraints_v1(x, vpp_data: dict):
     u_chg = u_chg.reshape((Nbat, Nt))
     u_dch = u_dch.reshape((Nbat, Nt))
 
+    u_bm = np.float64(u_bm > 0.5) 
+    u_dl = np.float64(u_dl > 0.5)
+    u_chg = np.float64(u_chg > 0.5)
+    u_dch = np.float64(u_dch > 0.5)
+
     # Restrições da biomassa
     Nbmc = (Nt * Nbm) + (Nt * Nbm) + ((Nt - 1) * Nbm) + ((Nt - 1) * Nbm)
     c_bm = np.zeros(Nbmc)
