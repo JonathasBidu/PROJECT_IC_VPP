@@ -7,7 +7,7 @@ import numpy as np
 """
 
 # Caminho das séries históricas
-path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BANCO_DE_DADOS\\Historico_do_Preco_Horario(SE)_-_17_de_abril_de_2018_a_5_de_abril_de_2022.xlsx"
+path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BASE_DE_DADOS\\Historico_do_Preco_Horario(SE)_-_17_de_abril_de_2018_a_5_de_abril_de_2022.xlsx"
 
 # Importando a tabela PLD e convertendo em séries históricas
 PLD_Table = pd.read_excel(path)

@@ -9,7 +9,7 @@ import pandas as pd
 from PVGenPwr import PVGenPwr as pv
 
 #  Obtendo o arquivo .csv a partir da oitava linha
-path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BANCO_DE_DADOS\\Timeseries_diario_2010_2020_2.csv"
+path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BASE_DE_DADOS\\Timeseries_diario_2010_2020_2.csv"
 data = pd.read_csv(path, sep = ';',skiprows = 8)
 
 # Convertendo a coluna G(i) que contém a irradiância em números flutuantes

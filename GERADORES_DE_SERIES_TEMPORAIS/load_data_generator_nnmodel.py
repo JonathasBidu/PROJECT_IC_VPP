@@ -10,7 +10,7 @@ from random import gauss
 """
 
 # Obtendo a série temporal a partir de um arquivo CSV
-path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BANCO_DE_DADOS\\Dafeira_load.TXT"
+path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BASE_DE_DADOS\\Dafeira_load.TXT"
 load15_Table = pd.read_csv(path, header = None) # header não há cabeçalho
 
 load15_tsdata = load15_Table.values[:, 0] # Obtendo todos os valores da coluna 0 da série temporal

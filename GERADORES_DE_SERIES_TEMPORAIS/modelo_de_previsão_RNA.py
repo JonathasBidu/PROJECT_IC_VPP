@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Criando uma variável que irá atribuir o caminho da tebela em emu computador
-path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BANCO_DE_DADOS\\TABELA_DE_CONVERSÃO_DE_CELSIUS_PARA_FAHRENHEIT.xlsx"
+path = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\BASE_DE_DADOS\\TABELA_DE_CONVERSÃO_DE_CELSIUS_PARA_FAHRENHEIT.xlsx"
 
 # Gerando um DataFrame
 temperature_df = pd.read_excel(path)
