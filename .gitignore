@@ -5,7 +5,3 @@ VPP_DISPATCH_V0/
 __pycache__/
 
 .vscode/
-
-VPP_DISPATCH_V1_APE/__pycache__
-
-GERADORES_DE_SERIES_TEMPORAIS/__pycache__
