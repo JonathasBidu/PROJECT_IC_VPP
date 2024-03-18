@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+
 """
     Carrega as projeções de carga, geração solar, geração eólica, e dados relacionados.
 
@@ -16,6 +17,7 @@ import numpy as np
            carga desconectada máxima, PLD (Preço de Liquidação de Diferença), e Tau Dist.
            
     """
+
 def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
 
     # Base de potência MW (Mega Watts)
@@ -70,10 +72,28 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     dl_delta_max = np.zeros(int(Ndl))
 
     for i in range(int(Ndl)):
-        dl_delta_max[i] = float(input(f'Limite superior de carga {i + 1} ((%) acima da referência): '))
+        while True:
+            dl_max = input(f'Limite superior de carga {i + 1} ((%) acima da referência): ')
+            try:
+                dl_max = float(dl_max)
+                if dl_max > 0:
+                    dl_delta_max[i] = dl_max
+                    break
+                print('Insira um valor real positivo')
+            except ValueError:
+                print("Informe um valor numérico válido")
     
     for i in range(int(Ndl)):
-        dl_delta_min[i] = float(input(f'Limite inferior de carga {i + 1} ((%) abaixo da referência): '))
+        while True:
+            dl_min = input(f'Limite inferior de carga {i + 1} ((%) abaixo da referência): ')
+            try:
+                dl_min = float(dl_min)
+                if dl_min > 0:
+                    dl_delta_min[i] = dl_min
+                    break
+                print('Insira um valor real positivo')
+            except ValueError:
+                print("Informe um valor numérico válido")
 
     print(' ')
     dl_delta_max = dl_delta_max / 100.0
@@ -96,10 +116,6 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
 # Nwt = 8  # Número de sistemas de geração eólica
 
 # p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
-
-# print(p_l.shape)
-
-
 
 # print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
 # print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
