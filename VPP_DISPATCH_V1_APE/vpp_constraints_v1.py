@@ -40,14 +40,14 @@ from decomp_vetor_v1 import decomp_vetor_v1
 
     Retorna:
     - Tuple - Uma tupla contendo duas listas de restrições;
-        - c: Por hora uma lista vazia
+        - c: Por ora, uma lista vazia
         - ceq: uma lista que cotém;
             - c_bm:
             - c_bat:
             - c_dl:  
 '''
 
-def vpp_constraints_v1(x, vpp_data: dict):
+def vpp_constraints_v1(x, vpp_data: dict) -> np.array:
 
     # Obtenção dos parâmetros individuais
     Nt = vpp_data['Nt']
@@ -89,15 +89,10 @@ def vpp_constraints_v1(x, vpp_data: dict):
     p_chg = p_chg.reshape((Nbat, Nt))
     p_dch = p_dch.reshape((Nbat, Nt))
     soc = soc.reshape((Nbat, Nt))
-    u_bm = u_bm.reshape((Nbm, Nt))
-    u_dl = u_dl.reshape((Ndl, Nt))
-    u_chg = u_chg.reshape((Nbat, Nt))
-    u_dch = u_dch.reshape((Nbat, Nt))
-
-    u_bm = np.float64(u_bm > 0.5) 
-    u_dl = np.float64(u_dl > 0.5)
-    u_chg = np.float64(u_chg > 0.5)
-    u_dch = np.float64(u_dch > 0.5)
+    u_bm = np.float64(u_bm > 0.5).reshape((Nbm, Nt))
+    u_dl = np.float64(u_dl > 0.5).reshape((Ndl, Nt))
+    u_chg = np.float64(u_chg > 0.5).reshape((Nbat, Nt))
+    u_dch = np.float64(u_dch > 0.5).reshape((Nbat, Nt))
 
     # Restrições da biomassa
     Nbmc = (Nt * Nbm) + (Nt * Nbm) + ((Nt - 1) * Nbm) + ((Nt - 1) * Nbm)
