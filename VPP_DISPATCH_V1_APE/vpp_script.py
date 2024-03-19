@@ -1,5 +1,5 @@
 import numpy as np
-from vpp_plot2 import vpp_plot2
+from vpp_plot import vpp_plot
 from vpp_create import vpp_create
 from carrega_projecoes import carrega_projecoes
 from vpp_dispatch_v1_module import vpp_dispatch_v1
@@ -46,7 +46,7 @@ vpp_data['u_dl'] = results['u_dl']
 vpp_data['u_chg'] = results['u_chg']
 vpp_data['u_dch'] = results['u_dch']
 
-vpp_plot2(vpp_data)
+vpp_plot(vpp_data)
 # print(f'p_bm == {vpp_data['p_bm']} \n')
 # print(f'p_bm_max == {vpp_data['p_bm_max']}\n')
 # print(f'p_bm_min == {vpp_data['p_bm_min']}\n')

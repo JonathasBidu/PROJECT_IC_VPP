@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def vpp_plot2(vpp_data):
+def vpp_plot(vpp_data):
 
     Nt = vpp_data['Nt']
     Nbm = vpp_data['Nbm']
