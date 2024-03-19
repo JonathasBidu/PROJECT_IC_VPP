@@ -3,11 +3,9 @@ from vpp_func_v1 import vpp_func_v1
 from vpp_constraints_v1 import vpp_constraints_v1
 from get_vpplimits import get_vpplimits_v1
 from decomp_vetor_v1 import decomp_vetor_v1
-from pymoo.core.problem import ElementwiseProblem
+from pymoo.core.problem import ElementwiseProblem, Problem
 from pymoo.algorithms.soo.nonconvex.ga import GA
 from pymoo.algorithms.soo.nonconvex.pso import PSO
-from pymoo.algorithms.soo.nonconvex.ga_niching import NicheGA
-from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.algorithms.soo.nonconvex.pattern import PatternSearch
 from pymoo.optimize import minimize
 
@@ -80,19 +78,46 @@ def vpp_dispatch_v1(vpp_data):
                         xu = ub
                         )
     
-    # algorithm = GA(pop_size = 200)
-    
-    # algorithm = PSO(pop_size = 300)
-    # algorithm = NSGA2()
-    # algorithm = NicheGA()
+    from pymoo.operators.sampling.rnd import FloatRandomSampling, BinaryRandomSampling, IntegerRandomSampling, PermutationRandomSampling
+    from pymoo.operators.selection.rnd import RandomSelection
+    from pymoo.operators.selection.tournament import TournamentSelection, compare
+    from pymoo.operators.crossover.ux import UniformCrossover
+    from pymoo.operators.crossover.dex import DEX
+    from pymoo.operators.crossover.hux import HalfUniformCrossover
+    from pymoo.operators.crossover.pcx import ParentCentricCrossover
+    from pymoo.operators.crossover.expx import ExponentialCrossover
+    from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+    from pymoo.operators.crossover.pntx import PointCrossover, TwoPointCrossover, SinglePointCrossover
+    from pymoo.operators.mutation.rm import ChoiceRandomMutation
+    from pymoo.operators.mutation.pm import PolynomialMutation
+    from pymoo.operators.survival.rank_and_crowding import RankAndCrowding
 
-    algorithm = PatternSearch()
+    # algorithm = GA(pop_size = 100,
+    #             #    sampling = FloatRandomSampling(),
+    #             #    selection = RandomSelection(),
+    #             #    crossover = SimulatedBinaryCrossover(prob_var=0.55),
+    #             #    mutation = PolynomialMutation(prob = 0.85, eta = 19, at_least_once = True),
+    #                eliminate_duplicates = True,
+    #             #    survival= RankAndCrowding(),
+    #                n_offsprings = 600)
+    
+    # algorithm = PSO(pop_size = 100,
+    #                 sampling=FloatRandomSampling(),
+    #                 w=0.5,
+    #                 c1=2.5,
+    #                 c2=2.5,
+    #                 max_velocity_rate=0.1
+    #                 )
+
+    algorithm = PatternSearch(init_delta=0.3,
+                              init_rho=0.6,
+                              step_size=1.5)
 
     res = minimize(problem,
                    algorithm,
-                   (('n_gen', 200)),
+                   (('n_gen', 250)),
                    seed = 1,
-                   verbose = True
+                   verbose = True,               
                    )
     
     results = {}
@@ -103,14 +128,14 @@ def vpp_dispatch_v1(vpp_data):
     p_bm, p_dl, p_chg, p_dch, soc, u_bm, u_dl, u_chg, u_dch = decomp_vetor_v1(x, Nt, Nbm, Ndl, Nbat) 
 
     # Reshape dos vetores em matrizes
-    results['p_bm'] = p_bm.reshape((vpp_data['Nt'], vpp_data['Nbm']))
-    results['p_dl'] = p_dl.reshape((vpp_data['Nt'], vpp_data['Ndl']))
-    results['p_chg'] = p_chg.reshape((vpp_data['Nt'], vpp_data['Nbat']))
-    results['p_dch'] = p_dch.reshape((vpp_data['Nt'], vpp_data['Nbat']))
-    results['soc'] = soc.reshape((vpp_data['Nt'], vpp_data['Nbat']))
-    results['u_bm'] = u_bm.reshape((vpp_data['Nt'], vpp_data['Nbm']))
-    results['u_dl'] = u_dl.reshape((vpp_data['Nt'], vpp_data['Ndl']))
-    results['u_chg'] = u_chg.reshape((vpp_data['Nt'], vpp_data['Nbat']))
-    results['u_dch'] = u_dch.reshape((vpp_data['Nt'], vpp_data['Nbat']))
+    results['p_bm'] = p_bm.reshape((Nbm, Nt))
+    results['p_dl'] = p_dl.reshape((Ndl, Nt))
+    results['p_chg'] = p_chg.reshape((Nbat, Nt))
+    results['p_dch'] = p_dch.reshape((Nbat, Nt))
+    results['soc'] = soc.reshape((Nbat, Nt))
+    results['u_bm'] = u_bm.reshape((Nbm, Nt))
+    results['u_dl'] = u_dl.reshape((Ndl, Nt))
+    results['u_chg'] = u_chg.reshape((Nbat, Nt))
+    results['u_dch'] = u_dch.reshape((Nbat, Nt))
 
     return results, x
