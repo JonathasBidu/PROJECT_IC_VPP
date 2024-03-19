@@ -3,34 +3,28 @@ import matplotlib.pyplot as plt
 
 def vpp_plot2(vpp_data):
 
-
-    Nt = vpp_data['Nt'] + 1
+    Nt = vpp_data['Nt']
     Nbm = vpp_data['Nbm']
-    t = np.arange(Nt)
-    print("Comprimento de t:", len(t))
+    t = np.arange(1, Nt + 1)
 
-    # # Biomassa
-    # for i in range(Nbm):
-    #     plt.figure()
-    #     plt.subplot(Nbm, i, i +1)
-    #     plt.plot(t, np.full(Nt, vpp_data['p_bm_min'][i]), 'b--',
-    #              t, np.full(Nt, vpp_data['p_bm_max'][i]), 'b--',
-    #              t, vpp_data['p_bm'][i], 'r')
-    #     plt.title(f"Usina biomassa {i+1}")
-    #     plt.ylabel('Potencia')
-    #     plt.xlabel('hora')
-    #     plt.legend(['min', 'max', 'p'])
+    p_bm = vpp_data['p_bm']
 
-    for i in range(vpp_data['Nbm']):
-        print(f"Comprimento de p_bm_min[{i}]:", len(vpp_data['p_bm_min']))
-        print(f"Comprimento de p_bm_max[{i}]:", len(vpp_data['p_bm_max']))
+    # Biomassa
+    for i in range(Nbm):
         plt.figure()
-        plt.subplot(vpp_data['Nbm'], 1, i+1)
-        plt.plot(t, np.full(vpp_data['Nt'], vpp_data['p_bm_min'][i]), 'b--',
-                 t, np.full(vpp_data['Nt'], vpp_data['p_bm_max'][i]), 'b--',
-                 t, vpp_data['p_bm'][i], 'r')
-        plt.title(f"Usina biomassa {i+1}")
-        plt.ylabel('Potencia')
-        plt.xlabel('hora')
-        plt.legend(['min', 'max', 'p'])
-    
+        print(vpp_data['p_bm_max'][i])
+        print(t, t.shape)
+        print(np.ones(p_bm.shape[1]) * vpp_data['p_bm_max'][i])
+        plt.plot(t, np.ones(p_bm.shape[1]) * vpp_data['p_bm_max'][i], 'g--')
+        plt.plot(t, np.ones(p_bm.shape[1]) * vpp_data['p_bm_min'][i], 'b--')
+        plt.plot(t, p_bm[i], 'r')
+
+        title_name = f'Usina de Biomassa {i+1}'
+        plt.title(title_name)
+        plt.xlabel('Hora')
+        plt.ylabel('Potência')
+        plt.legend(['max', 'min', 'p'])
+        plt.xlim(0, Nt)
+        plt.xticks(np.arange(0, Nt+1, 1))
+
+        plt.show()
