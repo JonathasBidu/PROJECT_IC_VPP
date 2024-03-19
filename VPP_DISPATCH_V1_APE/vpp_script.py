@@ -1,3 +1,4 @@
+import numpy as np
 from vpp_plot2 import vpp_plot2
 from vpp_create import vpp_create
 from carrega_projecoes import carrega_projecoes
@@ -35,3 +36,18 @@ vpp_data['p_l'], vpp_data['p_pv'], vpp_data['p_wt'], vpp_data['p_dl_ref'], vpp_d
 
 
 results, x = vpp_dispatch_v1(vpp_data)
+vpp_data['p_bm'] = results['p_bm']
+vpp_data['p_dl'] = results['p_dl']
+vpp_data['p_chg'] = results['p_chg']
+vpp_data['p_dch'] = results['p_dch']
+vpp_data['soc'] = results['soc']
+vpp_data['u_bm'] = results['u_bm'] 
+vpp_data['u_dl'] = results['u_dl'] 
+vpp_data['u_chg'] = results['u_chg']
+vpp_data['u_dch'] = results['u_dch']
+
+vpp_plot2(vpp_data)
+# print(f'p_bm == {vpp_data['p_bm']} \n')
+# print(f'p_bm_max == {vpp_data['p_bm_max']}\n')
+# print(f'p_bm_min == {vpp_data['p_bm_min']}\n')
+print(f'\nO lucro da vpp foi de {np.float64(results['Lucro'][0]):.2f} reais\n')
