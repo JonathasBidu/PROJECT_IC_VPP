@@ -80,6 +80,9 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     for i in range(int(Ndl)):
         while True:
             dl_max = input(f'Limite superior de carga {i + 1} ((%) acima da referência): ')
+            if dl_max == '':
+                dl_max = 20.0 # Default de 20 por cento de limite de corte de carga superior
+                break
             try:
                 dl_max = float(dl_max)
                 if dl_max > 0:
@@ -92,6 +95,9 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     for i in range(int(Ndl)):
         while True:
             dl_min = input(f'Limite inferior de carga {i + 1} ((%) abaixo da referência): ')
+            if dl_min == '':
+                dl_delta_min[i] = 20.0 # Default de 20 por cento de limite de corte de carga inferior
+                break
             try:
                 dl_min = float(dl_min)
                 if dl_min > 0:
