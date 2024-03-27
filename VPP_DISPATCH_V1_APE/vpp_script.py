@@ -47,7 +47,3 @@ vpp_data['u_chg'] = results['u_chg']
 vpp_data['u_dch'] = results['u_dch']
 
 vpp_plot(vpp_data)
-# print(f'p_bm == {vpp_data['p_bm']} \n')
-# print(f'p_bm_max == {vpp_data['p_bm_max']}\n')
-# print(f'p_bm_min == {vpp_data['p_bm_min']}\n')
-print(f'\nO lucro da vpp foi de {np.float64(results['Lucro'][0]):.2f} reais\n')
