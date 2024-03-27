@@ -3,10 +3,8 @@ from vpp_func_v1 import vpp_func_v1
 from vpp_constraints_v1 import vpp_constraints_v1
 from get_vpplimits import get_vpplimits_v1
 from decomp_vetor_v1 import decomp_vetor_v1
-from pymoo.core.problem import ElementwiseProblem, Problem
+from pymoo.core.problem import ElementwiseProblem
 from pymoo.algorithms.soo.nonconvex.ga import GA
-from pymoo.algorithms.soo.nonconvex.pso import PSO
-from pymoo.algorithms.soo.nonconvex.pattern import PatternSearch
 from pymoo.optimize import minimize
 
 from pymoo.config import Config
@@ -56,6 +54,7 @@ def vpp_dispatch_v1(vpp_data):
     Nbatc = ((Nt - 1) * Nbat) + (Nt*Nbat) + (Nt*Nbat) + (Nt*Nbat) + ((Nt - 1) * Nbat)   # Quantidade de restrições das baterias
     Ndlc = (Nt*Ndl) + (Nt*Ndl)                                                          # Quantidade de restrições das cargas despachaveis
     n_constr_ieq = Nbmc + Ndlc + Nbatc                                                  # Quantidade total de restrições
+    lb, ub = get_vpplimits_v1(vpp_data)
 
     class MyProblem(ElementwiseProblem):
 
@@ -68,7 +67,6 @@ def vpp_dispatch_v1(vpp_data):
             out['F'] = np.array([ -vpp_func_v1(x, self.data)])
             out['G'] = vpp_constraints_v1(x, self.data)
             
-    lb, ub = get_vpplimits_v1(vpp_data)
  
     problem = MyProblem(vpp_data,
                         n_var = nvars,
@@ -77,48 +75,17 @@ def vpp_dispatch_v1(vpp_data):
                         xl = lb,
                         xu = ub
                         )
-    
-    from pymoo.operators.sampling.rnd import FloatRandomSampling, BinaryRandomSampling, IntegerRandomSampling, PermutationRandomSampling
-    from pymoo.operators.selection.rnd import RandomSelection
-    from pymoo.operators.selection.tournament import TournamentSelection, compare
-    from pymoo.operators.crossover.ux import UniformCrossover
-    from pymoo.operators.crossover.dex import DEX
-    from pymoo.operators.crossover.hux import HalfUniformCrossover
-    from pymoo.operators.crossover.pcx import ParentCentricCrossover
-    from pymoo.operators.crossover.expx import ExponentialCrossover
-    from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-    from pymoo.operators.crossover.pntx import PointCrossover, TwoPointCrossover, SinglePointCrossover
-    from pymoo.operators.mutation.rm import ChoiceRandomMutation
-    from pymoo.operators.mutation.pm import PolynomialMutation
-    from pymoo.operators.survival.rank_and_crowding import RankAndCrowding
 
-    # algorithm = GA(pop_size = 100,
-    #             #    sampling = FloatRandomSampling(),
-    #             #    selection = RandomSelection(),
-    #             #    crossover = SimulatedBinaryCrossover(prob_var=0.55),
-    #             #    mutation = PolynomialMutation(prob = 0.85, eta = 19, at_least_once = True),
-    #                eliminate_duplicates = True,
-    #             #    survival= RankAndCrowding(),
-    #                n_offsprings = 600)
-    
-    # algorithm = PSO(pop_size = 100,
-    #                 sampling=FloatRandomSampling(),
-    #                 w=0.5,
-    #                 c1=2.5,
-    #                 c2=2.5,
-    #                 max_velocity_rate=0.1
-    #                 )
+    algorithm = GA(pop_size = 100)
 
-    algorithm = PatternSearch(init_delta=0.3,
-                              init_rho=0.6,
-                              step_size=1.5)
+    from pymoo.constraints.as_penalty import ConstraintsAsPenalty
+    from pymoo.core.evaluator import Evaluator
+    from pymoo.core.individual import Individual
 
-    res = minimize(problem,
-                   algorithm,
-                   (('n_gen', 250)),
-                   seed = 1,
-                   verbose = True,               
-                   )
+    termination = (('n_gen', 50))  
+
+    res = minimize(ConstraintsAsPenalty(problem, penalty = 100.0), algorithm, termination, seed = 1, verbose = True)
+    res = Evaluator().eval(problem, Individual(X = res.X))
     
     results = {}
     results['Lucro'] = - res.F
