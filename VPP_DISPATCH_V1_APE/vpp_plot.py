@@ -131,6 +131,7 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.xlabel('hora')
         plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
+        plt.xticks(np.arange(0, Nt + 2, 5))
         plt.show()
 
     # Wt
@@ -145,6 +146,8 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.title(title_name)
         plt.xlabel('hora')
         plt.ylabel('Potência em MW')
+        plt.xlim(0, Nt+1)
+        plt.xticks(np.arange(0, Nt + 2, 5))
         plt.show()
 
     # Potência Líquida
@@ -178,6 +181,8 @@ def vpp_plot(vpp_data: dict)-> None:
 
     title_name = f'Exportação de potência'
     plt.title(title_name)
+    plt.xlim(0, Nt+1)
+    plt.xticks(np.arange(0, Nt + 2, 5))
     plt.xlabel('hora')
     plt.ylabel('Potência em MW')
     plt.show()
@@ -188,6 +193,8 @@ def vpp_plot(vpp_data: dict)-> None:
 
     title_name = f'Importação de potência'
     plt.title(title_name)
+    plt.xlim(0, Nt+1)
+    plt.xticks(np.arange(0, Nt + 2, 5))
     plt.xlabel('hora')
     plt.ylabel('Potência em MW')
     plt.show()
