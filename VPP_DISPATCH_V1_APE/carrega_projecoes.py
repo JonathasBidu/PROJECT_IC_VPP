@@ -35,7 +35,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     # Criando um vetor de números aleatórios não repetidos
     idx = np.random.choice(m, int(Nl), replace = False)
     # Selecionando um suconjunto de linha (idx) e um intervalo da série carregada load_hourly_series (inicio: (inicio + Nt))
-    p_l = load_hourly_series_1.iloc[idx, inicio: (inicio + int(Nt))].values #/ pbase 
+    p_l = load_hourly_series_1.iloc[idx, inicio: (inicio + int(Nt))].values / pbase 
     
     # carregamento da segunda série e extração da janela
     # path_2 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\dload_hourly_series.csv"
@@ -43,7 +43,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     load_hourly_series_2 = pd.read_csv(path_2, sep = ';', header = None)
     m, _ = load_hourly_series_2.shape
     idx = np.random.choice(m, int(Ndl)) 
-    p_dl_ref = load_hourly_series_2.iloc[idx, inicio: (inicio + int(Nt))].values #/ pbase 
+    p_dl_ref = load_hourly_series_2.iloc[idx, inicio: (inicio + int(Nt))].values / pbase 
     
     # carregamento da terceira série e extração da janela
     # path_3 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\PVsystem_hourly_series.csv"
@@ -51,7 +51,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     PVpwr_hourly_serie = pd.read_csv(path_3, sep = ';', header = None)
     m, _ = PVpwr_hourly_serie.shape
     idx = np.random.choice(m, int(Npv))
-    p_pv = PVpwr_hourly_serie.iloc[idx, inicio: (inicio + int(Nt))].values #/ pbase
+    p_pv = PVpwr_hourly_serie.iloc[idx, inicio: (inicio + int(Nt))].values / pbase
 
     # carregamento da quarta série e extração da janela
     # path_4 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\WTGsystem_hourly_series.csv"
@@ -59,7 +59,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     WTGpwr_hourly_series = pd.read_csv(path_4, sep = ';', header = None)
     m, _ = WTGpwr_hourly_series.shape
     idx = np.random.choice(m, int(Nwt))
-    p_wt = WTGpwr_hourly_series.iloc[idx, inicio: (inicio + int(Nt))].values# / pbase
+    p_wt = WTGpwr_hourly_series.iloc[idx, inicio: (inicio + int(Nt))].values / pbase
 
     # carregamento da quinta série e extração da janela
     # path_5 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\PLD_hourly_data.csv"

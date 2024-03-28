@@ -13,16 +13,16 @@ def vpp_data():
 
     #  dados usina biomassa
     vpp_data['Nbm'] = 2
-    vpp_data['p_bm_min'] = np.array([1.85, 1.65])
-    vpp_data['p_bm_max'] = np.array([9.0, 7.5])
-    vpp_data['p_bm_rup'] = np.array([3.0 , 3.0])
-    vpp_data['p_bm_rdown']  = np.array([3.0, 3.0])
-    vpp_data['kappa_bm'] = np.array([6.05, 6.05])			
-    vpp_data['kappa_bm_start'] = np.array([20.14, 20.14])
+    vpp_data['p_bm_min'] = np.array([0.1, 0.15]) # Potência mínima (MW)
+    vpp_data['p_bm_max'] = np.array([1.0, 1.5]) # Potência máxima (MW)
+    vpp_data['p_bm_rup'] = np.array([0.5 , 0.5]) # Potência de ramp-up (MW)
+    vpp_data['p_bm_rdown']  = np.array([0.5, 0.5]) # Potência de ramp-down (MW)
+    vpp_data['kappa_bm'] = np.array([0.85, 0.85]) # Custo de operação (R$/kWh)		
+    vpp_data['kappa_bm_start'] = np.array([20.14, 20.14]) # Custo de partida(R$/kWh)
 
     # dados usina FV
-    vpp_data['Npv'] = 2
-    vpp_data['kappa_pv'] = np.array([0.027, 0.027])
+    vpp_data['Npv'] = 3
+    vpp_data['kappa_pv'] = np.array([0.022, 0.022, 0.22])
 
     # dados usina Eolica
     vpp_data['Nwt'] = 3
@@ -30,12 +30,12 @@ def vpp_data():
 
     # dados sistema de armazenamento
     vpp_data['Nbat'] = 1
-    vpp_data['eta_chg'] = np.array([0.914])
-    vpp_data['eta_dch'] = np.array([0.914])
-    vpp_data['soc_min'] = np.array([3.125])
-    vpp_data['soc_max'] = np.array([28.935])
-    vpp_data['p_bat_max']  = np.array([5.66])
-    vpp_data['kappa_bat']  = np.array([0.027])
+    vpp_data['eta_chg'] = np.array([0.914]) # Eficiência da bateria no carregamento (%)
+    vpp_data['eta_dch'] = np.array([0.914]) # Eficiência da bateria na descarga (%)
+    vpp_data['soc_min'] = np.array([0.50]) # Nível de carga mínima (MW)
+    vpp_data['soc_max'] = np.array([0.75]) # Nível de carga máximo (MW)
+    vpp_data['p_bat_max']  = np.array([0.75]) # Potência máxima da bateria (MW)
+    vpp_data['kappa_bat']  = np.array([0.038]) # Custo de operação (R$/kWh)
     # OBS: custos da eólica, FV e bateria arbitrados
 
     # dados cargas despachaveis
@@ -53,5 +53,5 @@ def vpp_data():
    
     return vpp_data
 
-# v = vpp_data()
+v = vpp_data()
 # print(v)
