@@ -110,12 +110,18 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.plot(t, p_dl_max[i,:], 'b--')
         plt.plot(t, p_dl[i,:], 'k')
 
+        max_pdl = int(np.max(p_dl_max[i,:]))
+        min_pdl = int(np.min(p_dl_min[i,:]))
+
         title_name = f'Cargas despachaveis {i + 1}'
         plt.title(title_name)
-        plt.xlabel('Potência')
-        plt.ylabel('Carga')
+        plt.xlabel('hora')
+        plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
+        # plt.ylim(min_pdl, max_pdl + 2)
+        plt.yticks(np.arange(min_pdl, max_pdl + 2, 1))
+        plt.legend(['ref', 'min', 'max', 'desp'])
         plt.show()
 
     # FV
@@ -126,12 +132,16 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.figure(figsize = (10, 4))
         plt.plot(t, p_pv[i], 'r')
 
+        max_pv = int(np.max(p_pv[i]))
+        min_pv = int(np.min(p_pv[i]))
+
         title_name = f'Usina Solar FV {i + 1}'
         plt.title(title_name)
         plt.xlabel('hora')
         plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
+        plt.yticks(np.arange(min_pv, max_pv + 2, 1))
         plt.show()
 
     # Wt
@@ -142,12 +152,16 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.figure(figsize = (10, 4))
         plt.plot(t, p_wt[i], 'r')
 
+        max_WTG = int(np.max(p_wt[i]))
+        min_WTG = int(np.min(p_wt[i]))
+
         title_name = f'Usina Eólica {i + 1}'
         plt.title(title_name)
         plt.xlabel('hora')
         plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
+        plt.yticks(np.arange(min_WTG, max_WTG + 2, 0.5))
         plt.show()
 
     # Potência Líquida
