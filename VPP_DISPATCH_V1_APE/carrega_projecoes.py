@@ -27,7 +27,8 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
 
     # Caminho da primeira série
     # path_1 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\load_hourly_series.csv"
-    path_1 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_load.csv"
+    path_1 =  "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\load_hourly_sistem.csv"
+
     # Carregamento da primeira série e extração da janela
     load_hourly_series_1 = pd.read_csv(path_1, sep = ';', header = None)
     # Desempacotamento do shape da primeira série
@@ -39,7 +40,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     
     # carregamento da segunda série e extração da janela
     # path_2 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\dload_hourly_series.csv"
-    path_2 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_dload.csv"
+    path_2 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\dload_hourly_seires.csv"
     load_hourly_series_2 = pd.read_csv(path_2, sep = ';', header = None)
     m, _ = load_hourly_series_2.shape
     idx = np.random.choice(m, int(Ndl)) 
@@ -47,29 +48,30 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
     
     # carregamento da terceira série e extração da janela
     # path_3 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\PVsystem_hourly_series.csv"
-    path_3 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_PVsistem.csv"
+    path_3 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\PVsistem_hourly_system.csv"
+
     PVpwr_hourly_serie = pd.read_csv(path_3, sep = ';', header = None)
     m, _ = PVpwr_hourly_serie.shape
     idx = np.random.choice(m, int(Npv))
-    p_pv = PVpwr_hourly_serie.iloc[idx, inicio: (inicio + int(Nt))].values / pbase
+    p_pv = PVpwr_hourly_serie.iloc[idx, inicio: (inicio + int(Nt))].values / 1e3
 
     # carregamento da quarta série e extração da janela
     # path_4 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\WTGsystem_hourly_series.csv"
-    path_4 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_WTG.csv"
+    path_4 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\WTGsystem_hourly_series.csv"
     WTGpwr_hourly_series = pd.read_csv(path_4, sep = ';', header = None)
     m, _ = WTGpwr_hourly_series.shape
     idx = np.random.choice(m, int(Nwt))
-    p_wt = WTGpwr_hourly_series.iloc[idx, inicio: (inicio + int(Nt))].values / pbase
+    p_wt = WTGpwr_hourly_series.iloc[idx, inicio: (inicio + int(Nt))].values / 1e3
 
     # carregamento da quinta série e extração da janela
     # path_5 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\PLD_hourly_data.csv"
-    path_5 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_PLD.csv"
+    path_5 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\PLD_hourly_series.csv"
     PLD_hourly_series = pd.read_csv(path_5, sep = ';', header = None)
     tau_pld = PLD_hourly_series.iloc[0, inicio: (inicio + int(Nt))]
 
     # carregamento da sexta série e extração da janela
     # path_6 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\TDist_hourly_series.csv"
-    path_6 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\leitura_Tdist.csv"
+    path_6 = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\TDist_hourly_series.csv"
     TDist_hourly_series = pd.read_csv(path_6, sep = ';', header = None)
     tau_dist = TDist_hourly_series.iloc[0, inicio: (inicio + int(Nt))]
     tau_dl = 0.15 * TDist_hourly_series.iloc[0, inicio: (inicio + int(Nt))] # Abatimento de 15% sobre o valor da tarifa

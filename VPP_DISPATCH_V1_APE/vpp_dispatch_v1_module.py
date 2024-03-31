@@ -33,7 +33,7 @@ Config.warnings['not_compiled'] = False
         - u_dch: vetor de status de descarga das bateria, dimensão ((Nbat * Nt), 1)
 """
 
-# Otimização utilizando ga
+# Otimização utilizando Ga(Genetic algorithm)
 def vpp_dispatch_v1(vpp_data):
 
     Nt = vpp_data['Nt']
@@ -67,7 +67,6 @@ def vpp_dispatch_v1(vpp_data):
             out['F'] = np.array([ -vpp_func_v1(x, self.data)])
             out['G'] = vpp_constraints_v1(x, self.data)
             
- 
     problem = MyProblem(vpp_data,
                         n_var = nvars,
                         n_obj = 1,
@@ -75,21 +74,33 @@ def vpp_dispatch_v1(vpp_data):
                         xl = lb,
                         xu = ub
                         )
-
+    
     algorithm = GA(pop_size = 100)
+    termination = (('n_gen', 50))  
 
+    # MODELO FEITO COM PENALIDADES NAS RESTRIÇÕES
     from pymoo.constraints.as_penalty import ConstraintsAsPenalty
     from pymoo.core.evaluator import Evaluator
     from pymoo.core.individual import Individual
 
-    termination = (('n_gen', 50))  
-
     res = minimize(ConstraintsAsPenalty(problem, penalty = 100.0), algorithm, termination, seed = 1, verbose = True)
     res = Evaluator().eval(problem, Individual(X = res.X))
+
+    # MODELO SEM PENALIDADES DE RESTRIÇÃO
+    # res = minimize(problem,
+    #                algorithm,
+    #                termination,
+    #                seed = 1,
+    #                verbose = True
+    #                )
     
+    # GERAÇÃO DE RESULTADOS
     results = {}
     results['Lucro'] = - res.F
     x = res.X
+
+    print(f'\nNessa simulação o lucro foi de {-res.F[0]:.2f} R$')
+    print(f'\nO total de violações foi {res.CV[0]:.2f}\n')
     
     # Decompõe o vetor de variáveis de decisão em matrizes
     p_bm, p_dl, p_chg, p_dch, soc, u_bm, u_dl, u_chg, u_dch = decomp_vetor_v1(x, Nt, Nbm, Ndl, Nbat) 
