@@ -14,15 +14,19 @@ vpp_data = vpp_create()
 
 # Número de instantes a serem programados
 while True:
-    Nt = input('No. de horas a frente: ')
+    Nt = input('No. de horas a frente ou tecle enter para 24 horas: ')
     print(' ')
-    if Nt.isnumeric() and int(Nt) > 0:
+    if Nt == '':
+        Nt = 24
+        break
+    elif Nt.isnumeric() and int(Nt) > 0:
         vpp_data['Nt'] = int(Nt)
         break
     else:
         print('Erro: informar um número inteiro e não-negativo')
 
-Nt = int(vpp_data['Nt'])
+# Nt = int(vpp_data['Nt'])
+vpp_data['Nt'] = Nt
 Nl = int(vpp_data['Nl'])
 Ndl = int(vpp_data['Ndl'])
 Npv = int(vpp_data['Npv'])
@@ -45,4 +49,3 @@ vpp_data['u_chg'] = results['u_chg']
 vpp_data['u_dch'] = results['u_dch']
 
 vpp_plot(vpp_data)
-
