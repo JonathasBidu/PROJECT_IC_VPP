@@ -75,8 +75,8 @@ def vpp_dispatch_v1(vpp_data):
                         xu = ub
                         )
     
-    algorithm = GA(pop_size = 100)
-    termination = (('n_gen', 50))  
+    algorithm = GA(pop_size = 50)
+    termination = (('n_gen', 25))  
 
     # MODELO FEITO COM PENALIDADES NAS RESTRIÇÕES
     from pymoo.constraints.as_penalty import ConstraintsAsPenalty
