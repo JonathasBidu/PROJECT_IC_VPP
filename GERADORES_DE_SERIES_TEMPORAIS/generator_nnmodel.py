@@ -14,7 +14,21 @@ def generator_nnmodel(Z: list)-> tuple:
     # Obtendo o tamanho de z 
     N = len(Z)
     # Obtendo a quantidade de lags
-    p = int(input('Insira o número de lags: '))
+    while True:
+        p = input('Insira o número de lags ou tecle enter para 2: ')
+        if p == '':
+            p = 2
+            break
+        try:
+            p = int(p)
+            if p > 0:
+                p = p
+                break
+            else:
+                print("Insira um valor numérico inteiro e positivo")
+        except ValueError:
+            print("Insira um valor numérico inteiro e positivo")
+
         
     # Iniciando a matriz de entrada "X" e o vetor de saída "Y" que será utilizado no modelo a seguir
     X = np.zeros((N - p, p))
@@ -54,7 +68,8 @@ def generator_nnmodel(Z: list)-> tuple:
                             solver = 'adam', 
                             max_iter = 5000, 
                             learning_rate = 'adaptive', 
-                            learning_rate_init= 0.001
+                            learning_rate_init= 0.001,
+                            verbose = True
                         )
 
     # Treinando o modelo onde, X é a matriz de entrada e Y é a saída desejada
@@ -64,6 +79,7 @@ def generator_nnmodel(Z: list)-> tuple:
     epochs = np.arange(p, N)
 
     # Geração da previsão pela rede utilizando o modelo treinado acima para os dados de entrada (X) 
+    print(f'Estou no previsor: tipo = {type(X)}, shape = {X.shape}')
     Yhat = model.predict(X)
 
     # Erro médio quadrado obtido pelo modelo
