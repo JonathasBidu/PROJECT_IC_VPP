@@ -46,19 +46,3 @@ vpp_data['u_dch'] = results['u_dch']
 
 vpp_plot(vpp_data)
 
-soma_p_bm = np.sum(vpp_data['p_bm'])
-soma_p_pv = np.sum(vpp_data['p_pv'])
-soma_p_wt = np.sum(vpp_data['p_wt'])
-soma_p_dl = np.sum(vpp_data['p_dl'])
-soma_p_l = np.sum(vpp_data['p_l'])
-
-soma_ger = soma_p_bm + soma_p_pv + soma_p_wt
-soma_carga = soma_p_dl + soma_p_l
-
-print('')
-print(f'A soma das cargas dos geradores é {soma_ger}')
-print(f'A soma das cargas é {soma_carga}')
-if soma_ger > soma_carga:
-    print(f'A soma dos geradores é maior do que a soma das cargas\n')
-else:
-    print(f'A soma dos geradores NÃO é maior do que a soma das cargas\n')
