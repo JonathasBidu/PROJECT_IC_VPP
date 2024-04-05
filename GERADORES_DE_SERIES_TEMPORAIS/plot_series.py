@@ -46,9 +46,12 @@ x = np.arange(1, Nt+1)
 load_df = pd.read_csv(path_1, sep = ';', header = None)
 load_df_raf = pd.read_csv(path_1_raf, sep = ';', header = None)
 
+print(load_df.shape)
+print(load_df_raf.shape)
+
 m, _ = load_df.shape
 
-# Série de cargas despachaveis
+# # Série de cargas despachaveis
 # for i in range(m):
 
 #     # load_series = load_df.iloc[i, :Nt]
@@ -62,9 +65,9 @@ m, _ = load_df.shape
 #     plt.xlabel("hora")
 #     plt.ylabel("Potência")
 #     plt.legend(['Raf'])
-#     # plt.legend(['Jon'])
+#     plt.legend(['Jon'])
 #     plt.show()
-
+# 
 # dload_df = pd.read_csv(path_2, sep = ';', header = None)
 # dload_df_raf = pd.read_csv(path_2_raf, sep = ';', header = None)
 
