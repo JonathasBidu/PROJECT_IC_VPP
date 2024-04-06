@@ -11,8 +11,6 @@ from sklearn.metrics import mean_squared_error
 """
 def generator_nnmodel(Z: list)-> tuple:
 
-    # Obtendo o tamanho de z 
-    N = len(Z)
     # Obtendo a quantidade de lags
     while True:
         p = input('Insira o número de lags ou tecle enter para 2: ')
@@ -30,6 +28,8 @@ def generator_nnmodel(Z: list)-> tuple:
             print("Insira um valor numérico inteiro e positivo")
 
         
+    # Obtendo o tamanho de z 
+    N = len(Z)
     # Iniciando a matriz de entrada "X" e o vetor de saída "Y" que será utilizado no modelo a seguir
     X = np.zeros((N - p, p))
     Y = np.zeros((N - p, ))
@@ -68,20 +68,18 @@ def generator_nnmodel(Z: list)-> tuple:
                             solver = 'adam', 
                             max_iter = 5000, 
                             learning_rate = 'adaptive', 
-                            learning_rate_init= 0.001,
-                            verbose = True
+                            learning_rate_init= 0.1,
+                            tol = 0.0001,
+                            # verbose = True
                         )
 
     # Treinando o modelo onde, X é a matriz de entrada e Y é a saída desejada
     model.fit(X, Y)
-
     # obtendo o vetor de épocas que será utilzado na plotagem do gráfico
     epochs = np.arange(p, N)
-
     # Geração da previsão pela rede utilizando o modelo treinado acima para os dados de entrada (X) 
-    print(f'Estou no previsor: tipo = {type(X)}, shape = {X.shape}')
+    # print(f'Estou no previsor: tipo = {type(X)}, shape = {X.shape}')
     Yhat = model.predict(X)
-
     # Erro médio quadrado obtido pelo modelo
     perf = mean_squared_error(Y, Yhat)
     # Obtendo coeficiente de determinação R² da previsão, R² é uma métrica que varia de 0 a 1, quanto mais próximo de 1 indica um ajuste melhor do modelo
@@ -90,15 +88,15 @@ def generator_nnmodel(Z: list)-> tuple:
     print(f'O ajuste geral do modelo aos dados usando o coeficiênte de determinação R² foi: {metric:.3f}')
 
     # Plotando o gráfico de saídas esperadas e saídas previstas   
-    fig, ax = plt.subplots(figsize = (12, 5))
-    ax.plot(epochs, Y)
-    ax.plot(epochs, Yhat)
-    ax.set_title('Forecast Model MLPRegressor', fontsize = 17)
-    ax.set_xlabel('Epoch', fontsize = 14)
-    ax.set_ylabel('Amplitude', fontsize = 14)
-    plt.legend(['Saídas esperadas', 'Saídas previstas'])
-    plt.grid(True)
-    plt.show()
+    # fig, ax = plt.subplots(figsize = (12, 5))
+    # ax.plot(epochs, Y)
+    # ax.plot(epochs, Yhat)
+    # ax.set_title('Forecast Model MLPRegressor', fontsize = 17)
+    # ax.set_xlabel('Epoch', fontsize = 14)
+    # ax.set_ylabel('Amplitude', fontsize = 14)
+    # plt.legend(['Saídas esperadas', 'Saídas previstas'])
+    # plt.grid(True)
+    # plt.show()
     
     Mdl = model
     return Mdl, p, Y, Yhat
