@@ -102,6 +102,7 @@ def vpp_plot(vpp_data: dict)-> None:
     # print(f'upper == {upper}')
     # print(f'lower == {lower}')
 
+    # Cargas despachaveis
     for i in range(Ndl):
 
         plt.figure(figsize = (10, 4))
@@ -120,7 +121,7 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
         # plt.ylim(min_pdl, max_pdl + 2)
-        plt.yticks(np.arange(min_pdl, max_pdl + 2, 1))
+        # plt.yticks(np.arange(min_pdl, max_pdl + 2, 1))
         plt.legend(['ref', 'min', 'max', 'desp'])
         plt.show()
 
@@ -141,7 +142,7 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
-        plt.yticks(np.arange(min_pv, max_pv + 2, 1))
+        # plt.yticks(np.arange(min_pv, max_pv + 2, 1))
         plt.show()
 
     # Wt
@@ -161,7 +162,7 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.ylabel('Potência em MW')
         plt.xlim(0, Nt+1)
         plt.xticks(np.arange(0, Nt + 2, 5))
-        plt.yticks(np.arange(min_WTG, max_WTG + 2, 0.5))
+        # plt.yticks(np.arange(min_WTG, max_WTG + 2, 0.5))
         plt.show()
 
     # Potência Líquida
