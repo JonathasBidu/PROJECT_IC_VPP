@@ -1,3 +1,4 @@
+from vppdata1_module import vpp_data
 import pandas as pd
 import numpy as np
 
@@ -124,17 +125,16 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
 
 # Exemplo de uso
 
-from vppdata1_module import vpp_data
 
-data = vpp_data()
+# data = vpp_data()
 
-Nt = 24  # Número de pontos de dados na série temporal
-Nl = data['Nl']   # Número de cargas
-Ndl = data['Ndl'] # Número de cargas de referência
-Npv = data['Npv']  # Número de sistemas fotovoltaicos
-Nwt = data['Nwt']  # Número de sistemas de geração eólica
+# Nt = 24  # Número de pontos de dados na série temporal
+# Nl = data['Nl']   # Número de cargas
+# Ndl = data['Ndl'] # Número de cargas de referência
+# Npv = data['Npv']  # Número de sistemas fotovoltaicos
+# Nwt = data['Nwt']  # Número de sistemas de geração eólica
 
-p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
+# p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
 
 # print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
 # print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
@@ -146,37 +146,3 @@ p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carre
 # print(f'tau_dist -> {tau_dist.shape} {type(tau_dist)} -> {tau_dist} \n')
 # print(f'tau_dl -> {tau_dl.shape} {type(tau_dl)} -> {tau_dl} \n')
 
-import matplotlib.pyplot as plt
-
-# Cargas despachaveis e não despachaveis
-x_1 = np.concatenate((p_l.flatten(), p_dl_ref.flatten()))
-d_1 = np.zeros((Nl + Ndl) * Nt) # Nl = 3, Nt = 24, Ndl = 2
-
-# cargas das usinas
-x_2 = np.concatenate((p_pv.flatten(), p_wt.flatten()))
-d_2 = np.zeros((Npv + Nwt) * Nt) # Npv = 3, Nt = 24, Nwt = 3
-
-pos = 0
-for xi in x_1:
-    d_1[pos] = np.sum(x_1 >= xi)
-    pos += 1
-
-pos = 0
-for xi in x_2:
-    d_2[pos] = np.sum(x_2 >= xi)
-    pos += 1
-
-idx_1 = np.argsort(d_1)
-d_ord_1 = np.sort(d_1)
-idx_2 = np.argsort(d_2)
-d_ord_2 = np.sort(d_2)
-
-plt.figure(figsize = (10, 5))
-plt.plot(d_ord_1, x_1[idx_1])
-plt.plot(d_ord_2, x_2[idx_2])
-plt.title('Gráfico de duração de cargas')
-plt.xlabel('duração')
-plt.ylabel('Cargas')
-plt.legend(['desp', 'ger'])
-plt.tight_layout()
-plt.show()
