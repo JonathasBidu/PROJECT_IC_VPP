@@ -32,8 +32,8 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.legend(['min', 'max', 'p'])
         plt.xlim(0, Nt)
         plt.xticks(np.arange(0, Nt + 2, 5))
-        plt.ylim(p_bm_min[i], p_bm_max[i] + 0.1)
-        plt.yticks(np.arange(0, p_bm_max[i] + 0.5, 0.5))
+        # plt.ylim(p_bm_min[i], p_bm_max[i] + 0.1)
+        # plt.yticks(np.arange(0, p_bm_max[i] + 0.5, 0.5))
         plt.show()
 
     # Baterias
