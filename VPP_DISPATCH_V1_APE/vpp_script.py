@@ -3,6 +3,7 @@ from vpp_plot import vpp_plot
 from vpp_create import vpp_create
 from carrega_projecoes import carrega_projecoes
 from vpp_dispatch_v1_module import vpp_dispatch_v1
+from update_p_bm import update
 
 #  Descricao do Script
 # Este script realiza a leitura dos parâmetros da vpp, as projeções de
@@ -36,6 +37,22 @@ Nbat = int(vpp_data['Nbat'])
 
 # Carregamento das projeções de cargas, geração FV/Eólica e PLD
 vpp_data['p_l'], vpp_data['p_pv'], vpp_data['p_wt'], vpp_data['p_dl_ref'], vpp_data['p_dl_min'], vpp_data['p_dl_max'], vpp_data['tau_pld'], vpp_data['tau_dist'], vpp_data['tau_dl'] = carrega_projecoes(Nt, Nl, Ndl , Npv , Nwt)
+
+
+p_l = vpp_data['p_l']
+p_pv = vpp_data['p_pv']
+p_wt = vpp_data['p_pv']
+p_dl_ref = vpp_data['p_dl_ref']
+
+r_up, r_down = update(Nt, p_l, p_dl_ref, p_pv, p_wt) 
+
+for i in range(Nbm):
+    vpp_data['p_bm_max'][i] = r_up
+
+vpp_data['p_bm_min'][0] = r_down
+
+print(vpp_data['p_bm_max'])
+print(vpp_data['p_bm_min'])
 
 results, x = vpp_dispatch_v1(vpp_data)
 vpp_data['p_bm'] = results['p_bm']
