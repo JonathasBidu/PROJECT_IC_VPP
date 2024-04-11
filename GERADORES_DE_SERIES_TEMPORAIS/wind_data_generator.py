@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from WTGenpwr import WTGenPwr
+import matplotlib.pyplot as plt
 from scipy.stats import weibull_min 
 
 ''' SCRIPT PARA GERACAO DE SERIES DE VENTO A PARTIR DO CRESESB
@@ -71,10 +72,36 @@ for s in range(Nscenarios):
         Pwtg = WTGenPwr(speed, cut_in_speed, cut_out_speed,nom_speed, nom_pwr, Nwtg)
         WTGpwr_hourly_series[s, time] = Pwtg
 
+path_4_raf = "C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\TESTES_PYTHON\\SERIES_MATLAB\\WTGsystem_hourly_series.csv"
+WTGpwr_hourly_series_raf = pd.read_csv(path_4_raf, sep = ';', header = None)
+WTGpwr_hourly_series_raf = WTGpwr_hourly_series_raf.to_numpy()
+
+r = WTGpwr_hourly_series.shape[0]
+x = np.arange(WTGpwr_hourly_series.shape[1])
+
+for i in range(r):
+
+    plt.figure(figsize = (12, 5))
+    plt.subplot(1, 2, 1)
+    plt.title(f'Série Eólica Jonathas {i + 1}')
+    plt.plot(x, WTGpwr_hourly_series[i, :], 'r')
+    plt.xlabel('hora')
+    plt.ylabel('carga')
+
+    plt.subplot(1, 2, 2)
+    plt.plot(x, WTGpwr_hourly_series_raf[i, :], 'm')
+    plt.title(f'Série Eólica Rafael {i + 1}')
+    plt.xlabel('hora')
+    plt.ylabel('carga')
+
+    plt.subplots_adjust(hspace = 0.8, wspace = 0.5)
+    plt.show()
+
+
 # Salvar o DataFrame em um arquivo CSV, Excel ou outro formato
-WTGpwr_hourly_series_df = pd.DataFrame(WTGpwr_hourly_series)
-WTGpwr_hourly_series_df.to_csv("C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\WTGsystem_hourly_series.csv",
-    sep=';',
-    index = False,
-    header = None
-    )
+# WTGpwr_hourly_series_df = pd.DataFrame(WTGpwr_hourly_series)
+# WTGpwr_hourly_series_df.to_csv("C:\\Users\\jonat\\OneDrive\\Área de Trabalho\\PROJETO_VPP\\GERADORES_DE_SERIES_TEMPORAIS\\SERIES_GERADAS\\WTGsystem_hourly_series.csv",
+#     sep=';',
+#     index = False,
+#     header = None
+#     )
