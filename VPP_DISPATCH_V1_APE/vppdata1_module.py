@@ -53,5 +53,16 @@ def vpp_data():
    
     return vpp_data
 
-v = vpp_data()
+# def update_p_bm(vpp_data, max, min):
+#     data = vpp_data
+#     r = len(data['p_bm_max'])
+#     for i in range(r):
+#         data['p_bm_max'][i] = max
+    
+#     data['p_bm_min'][0] = min
+    
+#     return vpp_data
+
+        
+# v = vpp_data()
 # print(v)
