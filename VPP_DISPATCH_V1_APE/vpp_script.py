@@ -38,21 +38,21 @@ Nbat = int(vpp_data['Nbat'])
 # Carregamento das projeções de cargas, geração FV/Eólica e PLD
 vpp_data['p_l'], vpp_data['p_pv'], vpp_data['p_wt'], vpp_data['p_dl_ref'], vpp_data['p_dl_min'], vpp_data['p_dl_max'], vpp_data['tau_pld'], vpp_data['tau_dist'], vpp_data['tau_dl'] = carrega_projecoes(Nt, Nl, Ndl , Npv , Nwt)
 
-
 p_l = vpp_data['p_l']
 p_pv = vpp_data['p_pv']
 p_wt = vpp_data['p_pv']
 p_dl_ref = vpp_data['p_dl_ref']
 
-r_up, r_down = update(Nt, p_l, p_dl_ref, p_pv, p_wt) 
+# cap_bm_max(capacidade máxima da usina de biomassa), cap_bm_min(capacidade mínima da usina de biomassa) e cap_bm_med(capacidade média)
+cap_bm_max, cap_bm_min, cap_bm_med = update(Nt, p_l, p_dl_ref, p_pv, p_wt) 
 
 for i in range(Nbm):
-    vpp_data['p_bm_max'][i] = r_up
+    vpp_data['p_bm_max'][i] = cap_bm_med
 
-vpp_data['p_bm_min'][0] = r_down
+# vpp_data['p_bm_min'][0] = cap_bm_min
 
 print(vpp_data['p_bm_max'])
-print(vpp_data['p_bm_min'])
+print(vpp_data['p_bm_min'],'\n')
 
 results, x = vpp_dispatch_v1(vpp_data)
 vpp_data['p_bm'] = results['p_bm']
