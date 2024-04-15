@@ -33,29 +33,29 @@ def update(Nt, p_l, p_dl_ref, p_pv, p_wt):
     idx_2 = np.argsort(d_2)
     d_ord_2 = np.sort(d_2)
 
-    r_up = max(x_1) #+ max(x_1) * 0.2
-    r_down = min(x_1) #- min(x_1) * 0.2
-    mod_x_1 = (max(x_1) - min(x_1)) / 2 + min(x_1)
+    c_bm_max = max(x_1) # Capacidade máxima da usina de biomassa
+    c_bm_min = min(x_1) # Capacidade mínima da usina de biomassa
+    c_bm_med = (max(x_1) - min(x_1)) / 2 + min(x_1) 
     # print(f'{r_up:.2f}')
     # print(f'{r_down:.2f}')
 
     plt.figure(figsize = (10, 5))
     plt.plot(d_ord_1, x_1[idx_1])
     plt.plot(d_ord_2, x_2[idx_2])
-    plt.axhline(r_up, color = 'r', linestyle = '-.')
-    plt.axhline(r_down, color = 'm', linestyle = '-.')
-    plt.axhline(mod_x_1, color = 'k', linestyle = '--')
+    plt.axhline(c_bm_max, color = 'r', linestyle = '-.')
+    plt.axhline(c_bm_min, color = 'm', linestyle = '-.')
+    plt.axhline(c_bm_med, color = 'k', linestyle = '--')
     plt.title('Gráfico de duração de cargas')
     plt.xlabel('duração')
     plt.ylabel('Cargas')
-    plt.legend(['desp', 'ger','p_bm_max', 'p_bm_min', 'módulo'])
+    plt.legend(['desp', 'ger','c_bm_max', 'c_bm_min', 'c_bm_med'])
     plt.tight_layout()
     # plt.grid(True)
     plt.show()
 
-    return r_up, r_down
+    return c_bm_max, c_bm_min, c_bm_med
 
-# Exemplo de uso
+# # Exemplo de uso
 
 # from carrega_projecoes import carrega_projecoes
 # from vppdata1_module import vpp_data
@@ -70,7 +70,8 @@ def update(Nt, p_l, p_dl_ref, p_pv, p_wt):
 
 # p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
 
-# a, b = update(Nt, p_l, p_dl_max, p_pv, p_wt)
+# a, b, c = update(Nt, p_l, p_dl_max, p_pv, p_wt)
 
 # print(f'P_bm_max == {a:.2f}')
 # print(f'P_bm_min == {b:.2f}')
+# print(f'P_bm_med == {c:.2f}')
