@@ -22,14 +22,14 @@ load15_tsdata_2 = load15_Table_2.values[:, 0] # Obtendo todos os valores da colu
 idx_1 = load15_tsdata_1.shape
 idx_2 = load15_tsdata_2.shape
 
-# # Plotagem das séries originais carregadas
-# x1 = np.arange(0, load15_tsdata_1.shape[0])
-# x2 = np.arange(0, load15_tsdata_2.shape[0])
-# plt.figure(figsize = (10, 4))
-# plt.plot(x1, load15_tsdata_1,'r')
-# plt.plot(x2, load15_tsdata_2,'b')
-# plt.legend(['Dafeira', 'Bandeira'])
-# plt.show()
+# Plotagem das séries originais carregadas
+x1 = np.arange(0, load15_tsdata_1.shape[0])
+x2 = np.arange(0, load15_tsdata_2.shape[0])
+plt.figure(figsize = (10, 4))
+plt.plot(x1, load15_tsdata_1,'r')
+plt.plot(x2, load15_tsdata_2,'b')
+plt.legend(['Dafeira', 'Bandeira'])
+plt.show()
 
 # # Obtendo o índice máximo que o vetor poderá ter sabendo que o tamanho do próximo vetor será 8760
 idx_1 = np.random.randint(idx_1[0] -  8760)
