@@ -51,23 +51,23 @@ print(load_df_raf.shape)
 
 m, _ = load_df.shape
 
-# # Série de cargas despachaveis
-# for i in range(m):
+# Série de cargas despachaveis
+for i in range(m):
 
-#     # load_series = load_df.iloc[i, :Nt]
-#     load_series_raf = load_df_raf.iloc[i, :Nt]
-#     # print(load_series.shape)
+    load_series = load_df.iloc[i, :Nt]
+    load_series_raf = load_df_raf.iloc[i, :Nt]
+    # print(load_series.shape)
 
-#     plt.figure(figsize = (10, 4))
-#     plt.title(f'Série de cargas despachaveis {i+1}')
-#     # plt.plot(x, load_series, 'r')
-#     plt.plot(x, load_series_raf, 'b')
-#     plt.xlabel("hora")
-#     plt.ylabel("Potência")
-#     plt.legend(['Raf'])
-#     plt.legend(['Jon'])
-#     plt.show()
-# 
+    plt.figure(figsize = (10, 4))
+    plt.title(f'Série de cargas despachaveis {i+1}')
+    plt.plot(x, load_series, 'r')
+    # plt.plot(x, load_series_raf, 'b')
+    plt.xlabel("hora")
+    plt.ylabel("Potência")
+    plt.legend(['Raf'])
+    plt.legend(['Jon'])
+    plt.show()
+
 # dload_df = pd.read_csv(path_2, sep = ';', header = None)
 # dload_df_raf = pd.read_csv(path_2_raf, sep = ';', header = None)
 
@@ -111,25 +111,25 @@ m, _ = load_df.shape
 #     plt.show()
 
 
-WTG_df = pd.read_csv(path_4, sep = ';', header = None)
-WTG_df_raf = pd.read_csv(path_4_raf, sep = ';', header = None)
+# WTG_df = pd.read_csv(path_4, sep = ';', header = None)
+# WTG_df_raf = pd.read_csv(path_4_raf, sep = ';', header = None)
 
 
-m, _ = WTG_df.shape
+# m, _ = WTG_df.shape
 
-for i in range(m):
+# for i in range(m):
 
-    # WTG_series = WTG_df.iloc[i, :Nt]
-    WTG_series_raf = WTG_df_raf.iloc[i, :Nt].values / 1e3
+#     # WTG_series = WTG_df.iloc[i, :Nt]
+#     WTG_series_raf = WTG_df_raf.iloc[i, :Nt].values / 1e3
 
-    plt.figure(figsize = (10, 4))
-    plt.title(f'Série de carga Eólica {i+1}')
-    # plt.plot(x, WTG_series, 'r')
-    plt.plot(x, WTG_series_raf, 'b')
-    plt.xlabel('hora')
-    plt.ylabel('Potência')
-    plt.legend(['raf'])
-    plt.show()
+#     plt.figure(figsize = (10, 4))
+#     plt.title(f'Série de carga Eólica {i+1}')
+#     # plt.plot(x, WTG_series, 'r')
+#     plt.plot(x, WTG_series_raf, 'b')
+#     plt.xlabel('hora')
+#     plt.ylabel('Potência')
+#     plt.legend(['raf'])
+#     plt.show()
 
 # PLD_df = pd.read_csv(path_5, sep = ';', header = None)
 # PLD_df_raf = pd.read_csv(path_5_raf, sep = ';', header = None)
