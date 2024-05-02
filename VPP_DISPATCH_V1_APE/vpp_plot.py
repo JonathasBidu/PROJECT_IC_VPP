@@ -13,6 +13,7 @@ def vpp_plot(vpp_data: dict)-> None:
     t = np.arange(1, Nt + 1)
 
     p_bm = vpp_data['p_bm']
+    u_bm = vpp_data['u_bm']
     p_bm_max = vpp_data['p_bm_max']
     p_bm_min = vpp_data['p_bm_min']
 
@@ -33,7 +34,18 @@ def vpp_plot(vpp_data: dict)-> None:
         plt.xlim(0, Nt)
         plt.xticks(np.arange(0, Nt + 2, 5))
         # plt.ylim(p_bm_min[i], p_bm_max[i] + 0.1)
-        # plt.yticks(np.arange(0, p_bm_max[i] + 0.5, 0.5))
+        plt.yticks(np.arange(0, p_bm_max[i] + 0.5, 0.5))
+        plt.show()
+
+        plt.figure(figsize = (10, 4))
+        plt.plot(t, u_bm[i], 'r')
+        # plt.plot(t, np.ones(Nt), 'b--')
+        # plt.plot(t, np.zeros(Nt), 'b--')
+        title_name = f'Estado da Biomassa {i + 1}'
+        plt.title(title_name)
+        plt.xlabel('Hora')
+        plt.xlim(0, Nt)
+        plt.xticks(np.arange(0, Nt + 2, 5))
         plt.show()
 
     # Baterias

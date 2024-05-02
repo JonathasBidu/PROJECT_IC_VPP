@@ -87,6 +87,11 @@ def decomp_vetor_v1(x, Nt: int, Nbm: int, Ndl: int, Nbat: int)-> tuple:
     fim = fim + (Nbat * Nt) + 1
     u_dch = (xi[inicio: fim])
 
+    u_bm = np.float64(u_bm > 0)
+    u_dl = np.float64(u_dl > 0)
+    u_chg = np.float64(u_chg > 0)
+    u_dch = np.float64(u_dch > 0)
+
     return p_bm, p_dl, p_chg, p_dch, soc, u_bm, u_dl, u_chg, u_dch
 
 

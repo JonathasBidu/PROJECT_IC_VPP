@@ -89,7 +89,12 @@ def vpp_func_v1(x, vpp_data):
     u_dl = u_dl.reshape((Ndl, Nt))
     u_chg = u_chg.reshape((Nbat, Nt))
     u_dch = u_dch.reshape((Nbat, Nt))
-
+    # u_bm = np.float64(u_bm > 0.5).reshape((Nbm, Nt))
+    # u_dl = np.float64(u_dl > 0.5).reshape((Ndl, Nt))
+    # u_chg = np.float64(u_chg > 0.5).reshape((Nbat, Nt))
+    # u_dch = np.float64(u_dch > 0.5).reshape((Nbat, Nt))
+    # print(u_bm)
+    
     # Potência líquida
     p_liq = np.zeros(Nt)
     for t in range(Nt):

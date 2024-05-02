@@ -46,8 +46,8 @@ p_dl_ref = vpp_data['p_dl_ref']
 # cap_bm_max(capacidade máxima da usina de biomassa), cap_bm_min(capacidade mínima da usina de biomassa) e cap_bm_med(capacidade média)
 cap_bm_max, cap_bm_min, cap_bm_med = update(Nt, p_l, p_dl_ref, p_pv, p_wt) 
 
-for i in range(Nbm):
-    vpp_data['p_bm_max'][i] = cap_bm_med
+# for i in range(Nbm):
+#     vpp_data['p_bm_max'][i] = cap_bm_med
 
 # vpp_data['p_bm_min'][0] = cap_bm_min
 
