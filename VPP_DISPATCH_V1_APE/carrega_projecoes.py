@@ -1,4 +1,3 @@
-from vppdata1_module import vpp_data
 import pandas as pd
 import numpy as np
 
@@ -84,7 +83,7 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
         while True:
             dl_max = input(f'Insira o limite superior da carga {i + 1} ((%) acima da referência) ou tecle enter para 20%: ')
             if dl_max == '':
-                dl_max = 20.0 # Default de 20 por cento de limite de corte de carga superior
+                dl_delta_max[i] = 20.0 # Default de 20 por cento de limite de corte de carga superior
                 break
             try:
                 dl_max = float(dl_max)
@@ -123,26 +122,38 @@ def carrega_projecoes(Nt:int, Nl:int, Ndl:int, Npv:int, Nwt:int)-> tuple:
 
     return p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl
 
+
 # Exemplo de uso
+if __name__ == '__main__':
 
+    from vppdata1_module import vpp_data
+    import matplotlib.pyplot as plt
 
-# data = vpp_data()
+    data = vpp_data()
 
-# Nt = 24  # Número de pontos de dados na série temporal
-# Nl = data['Nl']   # Número de cargas
-# Ndl = data['Ndl'] # Número de cargas de referência
-# Npv = data['Npv']  # Número de sistemas fotovoltaicos
-# Nwt = data['Nwt']  # Número de sistemas de geração eólica
+    Nt = 24  # Número de pontos de dados na série temporal
+    Nl = data['Nl']   # Número de cargas
+    Ndl = data['Ndl'] # Número de cargas de referência
+    Npv = data['Npv']  # Número de sistemas fotovoltaicos
+    Nwt = data['Nwt']  # Número de sistemas de geração eólica
 
-# p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
+    p_l, p_pv, p_wt, p_dl_ref, p_dl_min, p_dl_max, tau_pld, tau_dist, tau_dl = carrega_projecoes(Nt, Nl, Ndl, Npv, Nwt)
 
-# print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
-# print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
-# print(f'p_wt -> {p_wt.shape} {type(p_wt)} -> {p_wt} \n')
-# print(f'p_dl_ref -> {p_dl_ref.shape} {type(p_dl_ref)} -> {p_dl_ref} \n')
-# print(f'p_dl_min -> {p_dl_min.shape} {type(p_dl_min)} -> {p_dl_min} \n')
-# print(f'p_dl_max -> {p_dl_max.shape} {type(p_dl_max)} -> {p_dl_max} \n')
-# print(f'tau_pld -> {tau_pld.shape} {type(tau_pld)} -> {tau_pld} \n')
-# print(f'tau_dist -> {tau_dist.shape} {type(tau_dist)} -> {tau_dist} \n')
-# print(f'tau_dl -> {tau_dl.shape} {type(tau_dl)} -> {tau_dl} \n')
+    # print(f'p_pl -> {p_l.shape} {type(p_l)} -> {p_l} \n')
+    # print(f'p_pv -> {p_pv.shape} {type(p_pv)} -> {p_pv} \n')
+    # print(f'p_wt -> {p_wt.shape} {type(p_wt)} -> {p_wt} \n')
+    # print(f'p_dl_ref -> {p_dl_ref.shape} {type(p_dl_ref)} -> {p_dl_ref} \n')
+    # print(f'p_dl_min -> {p_dl_min.shape} {type(p_dl_min)} -> {p_dl_min} \n')
+    # print(f'p_dl_max -> {p_dl_max.shape} {type(p_dl_max)} -> {p_dl_max} \n')
+    # print(f'tau_pld -> {tau_pld.shape} {type(tau_pld)} -> {tau_pld} \n')
+    # print(f'tau_dist -> {tau_dist.shape} {type(tau_dist)} -> {tau_dist} \n')
+    # print(f'tau_dl -> {tau_dl.shape} {type(tau_dl)} -> {tau_dl} \n')
+
+    # for i in range(Ndl):
+
+    #     plt.plot(p_dl_ref[i,:])
+    #     plt.plot(p_dl_max[i,:])
+    #     plt.plot(p_dl_min[i,:])
+    #     plt.legend(['ref', 'max', 'min'])
+    #     plt.show()
 
